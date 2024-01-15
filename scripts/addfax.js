@@ -947,7 +947,7 @@ HeavyFax = /*#__PURE__*/function () {function HeavyFax() {_classCallCheck(this, 
         (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.visitUrl)("fight.php");
       }
 
-      if ((0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.currentRound)() != 0) {
+      if ((0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.currentRound)() == 0) {
         throw "Expected to be in fight, wasn't.";
       }
 
@@ -1058,6 +1058,7 @@ HeavyFax = /*#__PURE__*/function () {function HeavyFax() {_classCallCheck(this, 
       }
 
       (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.print)("Success! It looks like OnlyFax added that monster!", "blue");
+      (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.sendFax)();
     } }, { key: "getLookingFor", value:
 
     function getLookingFor() {
@@ -1080,6 +1081,7 @@ HeavyFax = /*#__PURE__*/function () {function HeavyFax() {_classCallCheck(this, 
     function getLocketHas() {
       var fought = (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.getProperty)("_locketMonstersFought").
       split(",").
+      filter(function (s) {return s.length > 0;}).
       map(function (s) {return kolmafia__WEBPACK_IMPORTED_MODULE_0__.Monster.get((0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.toInt)(s));});
 
       var monsters = Object.keys((0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.getLocketMonsters)()).map(function (s) {return (
