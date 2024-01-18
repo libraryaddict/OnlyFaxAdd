@@ -924,25 +924,45 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var kolmafia__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(kolmafia__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _greyyou_src_utils_MacroBuilder__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../greyyou/src/utils/MacroBuilder */ "./src/greyyou/src/utils/MacroBuilder.ts");
 function _typeof(o) {"@babel/helpers - typeof";return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {return typeof o;} : function (o) {return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;}, _typeof(o);}function _createForOfIteratorHelper(o, allowArrayLike) {var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"];if (!it) {if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") {if (it) o = it;var i = 0;var F = function F() {};return { s: F, n: function n() {if (i >= o.length) return { done: true };return { done: false, value: o[i++] };}, e: function e(_e) {throw _e;}, f: F };}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var normalCompletion = true,didErr = false,err;return { s: function s() {it = it.call(o);}, n: function n() {var step = it.next();normalCompletion = step.done;return step;}, e: function e(_e2) {didErr = true;err = _e2;}, f: function f() {try {if (!normalCompletion && it["return"] != null) it["return"]();} finally {if (didErr) throw err;}} };}function _unsupportedIterableToArray(o, minLen) {if (!o) return;if (typeof o === "string") return _arrayLikeToArray(o, minLen);var n = Object.prototype.toString.call(o).slice(8, -1);if (n === "Object" && o.constructor) n = o.constructor.name;if (n === "Map" || n === "Set") return Array.from(o);if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);}function _arrayLikeToArray(arr, len) {if (len == null || len > arr.length) len = arr.length;for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];return arr2;}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);Object.defineProperty(Constructor, "prototype", { writable: false });return Constructor;}function _defineProperty(obj, key, value) {key = _toPropertyKey(key);if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function _toPropertyKey(arg) {var key = _toPrimitive(arg, "string");return _typeof(key) === "symbol" ? key : String(key);}function _toPrimitive(input, hint) {if (_typeof(input) !== "object" || input === null) return input;var prim = input[Symbol.toPrimitive];if (prim !== undefined) {var res = prim.call(input, hint || "default");if (_typeof(res) !== "object") return res;throw new TypeError("@@toPrimitive must return a primitive value.");}return (hint === "string" ? String : Number)(input);}
-var
+
+
+
+
+
+
+
+var ambi = true;var
 
 HeavyFax = /*#__PURE__*/function () {function HeavyFax() {_classCallCheck(this, HeavyFax);_defineProperty(this, "copier",
     kolmafia__WEBPACK_IMPORTED_MODULE_0__.Item.get("Portable Photocopier"));_defineProperty(this, "photo",
-    kolmafia__WEBPACK_IMPORTED_MODULE_0__.Item.get("photocopied monster"));_defineProperty(this, "lookingFor", void 0);}_createClass(HeavyFax, [{ key: "runCombat", value:
+    kolmafia__WEBPACK_IMPORTED_MODULE_0__.Item.get("photocopied monster"));_defineProperty(this, "lookingFor", void 0);_defineProperty(this, "monsterId", void 0);}_createClass(HeavyFax, [{ key: "runCombat", value:
+
 
 
     function runCombat(monster) {
-      if ((0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.itemAmount)(this.copier) < 1) {
-        throw "Need at least one portable photocopier in inventory";
+      if ((0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.choiceFollowsFight)() || (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.fightFollowsChoice)() || (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.handlingChoice)()) {
+        (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.visitUrl)("main.php");
       }
 
-      if ((0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.itemAmount)(this.photo) > 0) {
-        throw "Have a photo in inventory already";
+      if ((0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.currentRound)() == 0) {
+        if ((0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.itemAmount)(this.copier) < 1) {
+          throw "Need at least one portable photocopier in inventory";
+        }
+
+        if ((0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.itemAmount)(this.photo) > 0) {
+          throw "Have a photo in inventory already";
+        }
+
+        (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.visitUrl)("inventory.php?reminisce=1", false);
+        (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.visitUrl)(
+          "choice.php?pwd=&whichchoice=1463&option=1&mid=" + (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.toInt)(monster)
+        );
       }
 
-      (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.visitUrl)("inventory.php?reminisce=1", false);
-      (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.visitUrl)("choice.php?pwd=&whichchoice=1463&option=1&mid=" + (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.toInt)(monster));
+      this.handleCombat(monster);
+    } }, { key: "handleCombat", value:
 
+    function handleCombat() {var expected = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
       if ((0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.fightFollowsChoice)()) {
         (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.visitUrl)("fight.php");
       }
@@ -950,6 +970,12 @@ HeavyFax = /*#__PURE__*/function () {function HeavyFax() {_classCallCheck(this, 
       if ((0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.currentRound)() == 0) {
         throw "Expected to be in fight, wasn't.";
       }
+
+      if (expected != null && expected != (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.lastMonster)()) {
+        throw "Somehow not in the expected fight";
+      }
+
+      this.monsterId = (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.toInt)((0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.lastMonster)());
 
       var macro = _greyyou_src_utils_MacroBuilder__WEBPACK_IMPORTED_MODULE_1__.Macro.item(this.copier).
       skill(kolmafia__WEBPACK_IMPORTED_MODULE_0__.Skill.get("saucegeyser")).
@@ -965,6 +991,24 @@ HeavyFax = /*#__PURE__*/function () {function HeavyFax() {_classCallCheck(this, 
       if ((0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.itemAmount)(this.photo) == 0) {
         throw "We failed to photocopy the monster..";
       }
+    } }, { key: "getAmbiguous", value:
+
+    function getAmbiguous() {
+      var jsonized = JSON.parse(
+        (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.visitUrl)("https://onlyfax.loathers.net/ambiguous.json")
+      );
+
+      var list = [];var _iterator = _createForOfIteratorHelper(
+
+          jsonized),_step;try {for (_iterator.s(); !(_step = _iterator.n()).done;) {var value = _step.value;
+          list.push({
+            clan: value.clan,
+            clanTitle: value.title,
+            monster: kolmafia__WEBPACK_IMPORTED_MODULE_0__.Monster.get(value.monster)
+          });
+        }} catch (err) {_iterator.e(err);} finally {_iterator.f();}
+
+      return list;
     } }, { key: "getPhoto", value:
 
     function getPhoto() {
@@ -989,15 +1033,15 @@ HeavyFax = /*#__PURE__*/function () {function HeavyFax() {_classCallCheck(this, 
         this.submit();
 
         return;
-      }var _iterator = _createForOfIteratorHelper(
+      }var _iterator2 = _createForOfIteratorHelper(
 
-          has),_step;try {for (_iterator.s(); !(_step = _iterator.n()).done;) {var h = _step.value;
+          has),_step2;try {for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {var h = _step2.value;
           if (!this.lookingFor.includes(h)) {
             continue;
           }
 
           couldDo.push(h);
-        }} catch (err) {_iterator.e(err);} finally {_iterator.f();}
+        }} catch (err) {_iterator2.e(err);} finally {_iterator2.f();}
 
       (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.print)("Looking for: ".concat(
         this.lookingFor.length, " monsters, you could do ").concat(couldDo.length, " of them")
@@ -1034,7 +1078,10 @@ HeavyFax = /*#__PURE__*/function () {function HeavyFax() {_classCallCheck(this, 
       (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.receiveFax)();
 
       (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.print)("Now asking OnlyFax to grab it..");
-      (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.chatPrivate)("OnlyFax", "addfax run");
+      (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.chatPrivate)("OnlyFax", "addfax run".concat(ambi ? " " + this.monsterId : ""));
+
+      // Reset it early so they dont reuse
+      this.monsterId = null;
 
       if (!this.lookingFor.includes(photo)) {
         return;
@@ -1062,6 +1109,16 @@ HeavyFax = /*#__PURE__*/function () {function HeavyFax() {_classCallCheck(this, 
     } }, { key: "getLookingFor", value:
 
     function getLookingFor() {
+      if (ambi) {
+        var list = this.getAmbiguous();
+
+        return list.
+        map(function (l) {return l.monster;}).
+        filter(
+          function (m) {return kolmafia__WEBPACK_IMPORTED_MODULE_0__.Monster.get(2073) != m && kolmafia__WEBPACK_IMPORTED_MODULE_0__.Monster.get("source agent") != m;}
+        );
+      }
+
       var page = (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.visitUrl)("https://onlyfax.loathers.net");
       page = page.substring(page.indexOf("<a id=\"lookingfor\"></a>"));
 
@@ -1075,7 +1132,9 @@ HeavyFax = /*#__PURE__*/function () {function HeavyFax() {_classCallCheck(this, 
         page = page.replace(match[0], "");
       }
 
-      return monsters.filter(function (m) {return kolmafia__WEBPACK_IMPORTED_MODULE_0__.Monster.get(2073) != m;});
+      return monsters.filter(
+        function (m) {return kolmafia__WEBPACK_IMPORTED_MODULE_0__.Monster.get(2073) != m && kolmafia__WEBPACK_IMPORTED_MODULE_0__.Monster.get("source agent") != m;}
+      );
     } }, { key: "getLocketHas", value:
 
     function getLocketHas() {
