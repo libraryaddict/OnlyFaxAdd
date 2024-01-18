@@ -1023,47 +1023,75 @@ HeavyFax = /*#__PURE__*/function () {function HeavyFax() {_classCallCheck(this, 
       }
 
       this.lookingFor = this.getLookingFor();
-      var has = this.getLocketHas();
-
-      var couldDo = [];
       var photo = this.getPhoto();
 
-      if (photo != null && this.lookingFor.includes(photo)) {
-        (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.print)("Found existing photocopy " + photo + " in inventory");
-        this.submit();
+      if ((0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.currentRound)() != 0) {
+        if (photo != null && this.lookingFor.includes(photo)) {
+          (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.print)("You already have a photo in inventory", "red");
 
-        return;
-      }var _iterator2 = _createForOfIteratorHelper(
+          return;
+        }
 
-          has),_step2;try {for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {var h = _step2.value;
-          if (!this.lookingFor.includes(h)) {
-            continue;
-          }
+        if (!this.lookingFor.includes((0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.lastMonster)())) {
+          (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.print)("Not looking for this sadly", "red");
 
-          couldDo.push(h);
-        }} catch (err) {_iterator2.e(err);} finally {_iterator2.f();}
+          return;
+        }
 
-      (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.print)("Looking for: ".concat(
-        this.lookingFor.length, " monsters, you could do ").concat(couldDo.length, " of them")
-      );
+        var confirm = (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.userConfirm)(
+          "Do you want to try do the monster you are fighting?"
+        );
 
-      if (couldDo.length == 0) {
-        (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.print)("You can't do any of them sadface.png", "red");
+        if (!confirm) {
+          (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.print)("Not doing as per user request");
 
-        return;
+          return;
+        }
+
+        this.runCombat((0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.lastMonster)());
+      } else {
+        var has = this.getLocketHas();
+
+        var couldDo = [];
+
+        if (photo != null && this.lookingFor.includes(photo)) {
+          (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.print)("Found existing photocopy " + photo + " in inventory");
+          this.submit();
+
+          return;
+        }var _iterator2 = _createForOfIteratorHelper(
+
+            has),_step2;try {for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {var h = _step2.value;
+            if (!this.lookingFor.includes(h)) {
+              continue;
+            }
+
+            couldDo.push(h);
+          }} catch (err) {_iterator2.e(err);} finally {_iterator2.f();}
+
+        (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.print)("Looking for: ".concat(
+          this.lookingFor.length, " monsters, you could do ").concat(couldDo.length, " of them")
+        );
+
+        if (couldDo.length == 0) {
+          (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.print)("You can't do any of them sadface.png", "red");
+
+          return;
+        }
+
+        var letsDo = couldDo[Math.floor(Math.random() * couldDo.length)];
+
+        var _confirm = (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.userConfirm)("Do you want to try do: " + letsDo.name);
+
+        if (!_confirm) {
+          (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.print)("Not doing as per user request");
+
+          return;
+        }
+
+        this.runCombat(letsDo);
       }
 
-      var letsDo = couldDo[Math.floor(Math.random() * couldDo.length)];
-
-      var confirm = (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.userConfirm)("Do you want to try do: " + letsDo.name);
-
-      if (!confirm) {
-        (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.print)("Not doing as per user request");
-
-        return;
-      }
-
-      this.runCombat(letsDo);
       this.submit();
     } }, { key: "submit", value:
 
@@ -1157,7 +1185,10 @@ HeavyFax = /*#__PURE__*/function () {function HeavyFax() {_classCallCheck(this, 
         return false;
       }
 
-      if ((0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.getProperty)("_locketMonstersFought").split(",").length >= 3) {
+      if (
+      (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.currentRound)() == 0 &&
+      (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.getProperty)("_locketMonstersFought").split(",").length >= 3)
+      {
         (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.print)("You already used all lockets", "red");
 
         return false;
