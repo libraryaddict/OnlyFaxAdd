@@ -985,7 +985,24 @@ HeavyFax = /*#__PURE__*/function () {function HeavyFax() {_classCallCheck(this, 
       macro.submit();
 
       if ((0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.currentRound)() != 0) {
-        throw "We're still in a fight, looks like shitty autocombat v0.1 has failed. Finish the fight manually then run this again to continue";
+        (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.print)(
+          "We're still in a fight, looks like shitty autocombat v0.1 has failed.",
+          "red"
+        );
+
+        (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.cliExecute)("relay");
+
+        (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.userConfirm)(
+          "Press a button when you've finished this fight, doesn't matter which button."
+        );
+
+        (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.print)("You finished the fight? Lets see...");
+      }
+
+      if ((0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.currentRound)() != 0) {
+        (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.print)("You still didn't finish the fight. Lets abort", "red");
+
+        throw "Aborting as user is incredibly weak and lame and unable to fight";
       }
 
       if ((0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.itemAmount)(this.photo) == 0) {
@@ -1214,6 +1231,12 @@ HeavyFax = /*#__PURE__*/function () {function HeavyFax() {_classCallCheck(this, 
 
       if (!(0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.getClanLounge)()[kolmafia__WEBPACK_IMPORTED_MODULE_0__.Item.get("deluxe fax machine").name]) {
         (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.print)("You don't have a fax machine in your clan", "red");
+
+        return false;
+      }
+
+      if (ambi && (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.availableAmount)(this.photo) > 0) {
+        (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.print)("You have a photocopy in your inventory", "red");
 
         return false;
       }
