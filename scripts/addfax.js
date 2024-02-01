@@ -1159,9 +1159,7 @@ HeavyFax = /*#__PURE__*/function () {function HeavyFax() {_classCallCheck(this, 
 
         return list.
         map(function (l) {return l.monster;}).
-        filter(
-          function (m) {return kolmafia__WEBPACK_IMPORTED_MODULE_0__.Monster.get(2073) != m && kolmafia__WEBPACK_IMPORTED_MODULE_0__.Monster.get("source agent") != m;}
-        );
+        filter(function (m) {return ![2073, 2069, 1945, 1459].includes(m.id);});
       }
 
       var page = (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.visitUrl)("https://onlyfax.loathers.net");
