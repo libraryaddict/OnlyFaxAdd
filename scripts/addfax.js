@@ -1201,6 +1201,7 @@ HeavyFax = /*#__PURE__*/function () {function HeavyFax() {_classCallCheck(this, 
       }
 
       if (
+      (ambi || (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.availableAmount)(this.photo) == 0) &&
       (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.currentRound)() == 0 &&
       (0,kolmafia__WEBPACK_IMPORTED_MODULE_0__.getProperty)("_locketMonstersFought").split(",").length >= 3)
       {
