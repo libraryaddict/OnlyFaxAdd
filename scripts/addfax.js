@@ -979,6 +979,7 @@ HeavyFax = /*#__PURE__*/function () {function HeavyFax() {_classCallCheck(this, 
 
       var macro = _greyyou_src_utils_MacroBuilder__WEBPACK_IMPORTED_MODULE_1__.Macro.item(this.copier).
       skill(kolmafia__WEBPACK_IMPORTED_MODULE_0__.Skill.get("saucegeyser")).
+      skill(kolmafia__WEBPACK_IMPORTED_MODULE_0__.Skill.get("saucegeyser")).
       attack().
       abort();
 
